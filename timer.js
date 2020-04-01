@@ -28,6 +28,11 @@ class CountdownTimer {
     remainingTime
 
     /**
+     * Stores the id for `setInterval()`.
+     */
+    intervalId
+
+    /**
      *
      * @param {HTMLElement} options.timerText - HTML element that will display the time
      *
@@ -48,12 +53,12 @@ class CountdownTimer {
     }
 
     start = () => {
-        if (!this.interval) {
-            this.interval = setInterval(this.updateTimer, this.timerInterval)
+        if (!this.intervalId) {
+            this.intervalId = setInterval(this.updateTimer, this.timerInterval)
         }
     }
 
-    pause = () => this.interval = clearInterval(this.interval)
+    pause = () => this.intervalId = clearInterval(this.intervalId)
 
     reset = () => {
         this.pause()
