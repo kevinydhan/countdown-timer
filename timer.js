@@ -96,8 +96,8 @@ const timer = new CountdownTimer({
         resetButton: document.querySelector('.reset-button')
     },
     remainingTime: {
-        minutes: 20,
-        seconds: 5
+        minutes: 25,
+        seconds: 0
     },
     audioPath: './alarm.wav'
 })
