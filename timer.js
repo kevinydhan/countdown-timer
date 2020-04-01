@@ -29,10 +29,7 @@ class CountdownTimer {
 
     /**
      *
-     * @param {HTMLElement} options.elements.timerText - HTML element that will display the time
-     * @param {HTMLElement} options.elements.startButton - HTML element that will start the timer when clicked
-     * @param {HTMLElement} options.elements.pauseButton - HTML element that will pause the timer when clicked
-     * @param {HTMLElement} options.elements.resetButton - HTML element that will reset the timer when clicked
+     * @param {HTMLElement} options.timerText - HTML element that will display the time
      *
      * @param {number} options.remainingTime.minutes - Number of minutes
      * @param {number} options.remainingTime.seconds - Number of seconds
@@ -40,21 +37,14 @@ class CountdownTimer {
      * @param {string} options.audioPath - Path to the audio file
      */
     constructor(options) {
-        const { elements, remainingTime, audioPath } = options
+        const { timerText, remainingTime, audioPath } = options
 
-        this.timerText = elements.timerText
+        this.timerText = timerText
         this.display = { ...remainingTime }
         this.totalTime = this.remainingTime = parseInt(this.display.seconds) * 1000 + parseInt(this.display.minutes) * 1000 * 60
         this.audio = new Audio(audioPath)
 
-        this.associateEventListeners(elements)
         this.updateDisplay()
-    }
-
-    associateEventListeners = (elements) => {
-        elements.startButton.addEventListener('click', this.start)
-        elements.pauseButton.addEventListener('click', this.pause)
-        elements.resetButton.addEventListener('click', this.reset)
     }
 
     start = () => {
@@ -89,15 +79,14 @@ class CountdownTimer {
 }
 
 const timer = new CountdownTimer({
-    elements: {
-        timerText: document.querySelector('.countdown'),
-        startButton: document.querySelector('.start-button'),
-        pauseButton: document.querySelector('.pause-button'),
-        resetButton: document.querySelector('.reset-button')
-    },
+    timerText: document.querySelector('.countdown'),
     remainingTime: {
         minutes: 25,
         seconds: 0
     },
     audioPath: './alarm.wav'
 })
+
+document.querySelector('.start-button').addEventListener('click', timer.start)
+document.querySelector('.pause-button').addEventListener('click', timer.pause)
+document.querySelector('.reset-button').addEventListener('click', timer.reset)
